@@ -8,8 +8,14 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
+    /* ADD THIS ↓↓↓ */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
