@@ -1,11 +1,10 @@
 import Layout from "@/app/layout";
+import LogsTable from "@/features/logs/components/LogsTable";
 
 export default function App() {
   return (
     <Layout>
-      <div className="border rounded-lg p-6 text-muted-foreground">
-        Logs table will render here.
-      </div>
+      <LogsTable />
     </Layout>
   );
 }

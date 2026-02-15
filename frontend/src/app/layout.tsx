@@ -8,9 +8,11 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="h-screen flex flex-col bg-background text-foreground">
       <Header />
-      <PageContainer>{children}</PageContainer>
+
+      {/* Important: flex-1 makes remaining space available */}
+      <PageContainer className="flex-1">{children}</PageContainer>
     </div>
   );
 }
