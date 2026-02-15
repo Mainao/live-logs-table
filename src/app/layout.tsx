@@ -1,6 +1,6 @@
-import Header from '@/components/shared/Header';
-import PageContainer from '@/components/shared/PageContainer';
-import { type ReactNode } from 'react';
+import Header from "@/components/shared/Header";
+import PageContainer from "@/components/shared/PageContainer";
+import { type ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
