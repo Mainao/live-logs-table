@@ -32,8 +32,13 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      IMAGE_BASE: ghcr.io/${{ github.repository_owner }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Lowercase image base
+        run: echo "IMAGE_BASE=${IMAGE_BASE,,}" >> "$GITHUB_ENV"
 
       - uses: docker/login-action@v3
         with:
@@ -45,7 +50,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/${{ github.repository }}/backend:latest
+          tags: ${{ env.IMAGE_BASE }}/live-logs-backend:latest
 
       - uses: docker/build-push-action@v6
         with:
@@ -53,4 +58,4 @@ jobs:
           push: true
           build-args: |
             VITE_SSE_URL=${{ vars.VITE_SSE_URL }}
-          tags: ghcr.io/${{ github.repository }}/frontend:latest
+          tags: ${{ env.IMAGE_BASE }}/live-logs-frontend:latest
