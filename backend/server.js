@@ -3,13 +3,22 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+let logId = 0;
 
 const PORT = process.env.PORT || 4000;
-const FRONTEND_URL = process.env.FRONTEND_URL || "*";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+
+const allowedOrigins = FRONTEND_URL.split(",").map((u) => u.trim());
 
 app.use(
     cors({
-        origin: FRONTEND_URL,
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
     }),
 );
 
@@ -27,7 +36,7 @@ app.get("/logs", (req, res) => {
 
     const interval = setInterval(() => {
         const log = {
-            id: Date.now(),
+            id: ++logId,
             timestamp: new Date().toISOString(),
             level: ["INFO", "WARN", "ERROR"][Math.floor(Math.random() * 3)],
             service: ["Auth", "Payments", "Orders"][
